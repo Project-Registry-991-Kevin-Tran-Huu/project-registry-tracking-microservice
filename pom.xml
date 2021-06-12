@@ -12,8 +12,8 @@
 	<groupId>com.revature</groupId>
 	<artifactId>project-registry-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>project-registry-backend</name>
-	<description>Monolithic Backend for Project Registry</description>
+	<name>project-registry-tracking</name>
+	<description>Project Tracking microservice for Project Registry</description>
 
 	<properties>
 		<java.version>8</java.version>
