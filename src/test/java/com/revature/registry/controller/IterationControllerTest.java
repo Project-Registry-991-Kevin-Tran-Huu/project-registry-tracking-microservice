@@ -13,12 +13,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.time.LocalDate;
 import java.util.List;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.registry.ProjectRegistryBackendApplication;
-import com.revature.registry.model.Iteration;
-import com.revature.registry.service.IterationService;
-
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,11 +29,17 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.registry.ProjectRegistryTrackingApplication;
+import com.revature.registry.model.Iteration;
+import com.revature.registry.service.IterationService;
+
 
 
 //TODO: Change JSON VALUES THAT STILL REFER TO PROJECT TESTING
 
-@SpringBootTest(classes = ProjectRegistryBackendApplication.class)
+@SpringBootTest(classes = ProjectRegistryTrackingApplication.class)
 @ExtendWith(SpringExtension.class)
 class IterationControllerTest {
 

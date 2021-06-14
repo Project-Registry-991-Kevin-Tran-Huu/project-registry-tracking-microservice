@@ -9,11 +9,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import com.revature.registry.ProjectRegistryBackendApplication;
-import com.revature.registry.model.Iteration;
-import com.revature.registry.repository.IterationRepository;
-import com.revature.registry.service.IterationService;
-
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,6 +19,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.revature.registry.ProjectRegistryTrackingApplication;
+import com.revature.registry.model.Iteration;
+import com.revature.registry.repository.IterationRepository;
+import com.revature.registry.service.IterationService;
 
 
 
@@ -31,7 +30,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 
 
-@SpringBootTest(classes = ProjectRegistryBackendApplication.class)
+
+@SpringBootTest(classes = ProjectRegistryTrackingApplication.class)
 @ExtendWith(SpringExtension.class)
 class IterationServiceTest {
 

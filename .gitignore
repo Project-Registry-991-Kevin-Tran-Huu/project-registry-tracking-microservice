@@ -112,3 +112,9 @@ fabric.properties
 
 # Checkstyle Plugin Artifact
 .checkstyle
+
+/log
+/logs
+log*.log
+log*.txt
+
