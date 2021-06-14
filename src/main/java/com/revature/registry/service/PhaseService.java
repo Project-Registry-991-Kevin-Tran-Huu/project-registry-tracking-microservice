@@ -21,10 +21,9 @@ public class PhaseService {
 		return phase;
 	}
 
-	public Optional<Phase>  getPhaseById(int id) {
-		Optional<Phase> phase = phaseRepository.findById(id);
-		if (phase.isPresent()) {
-
+	public Phase  getPhaseById(int id) {
+		Phase phase = phaseRepository.findById(id);
+		if (phase != null) {
 			return phase;
 		}
 		return null;

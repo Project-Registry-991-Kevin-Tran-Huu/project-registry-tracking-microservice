@@ -1,7 +1,6 @@
 package com.revature.registry.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.revature.registry.model.Phase;
 import com.revature.registry.service.PhaseService;
@@ -38,10 +37,10 @@ public class PhaseController {
     }
     
     @GetMapping("/id/{id}")
-    public ResponseEntity<Optional<Phase>> getPhaseById(@PathVariable("id") int id) {
-    	Optional<Phase> phase =  phaseService.getPhaseById(id);
+    public ResponseEntity<Phase> getPhaseById(@PathVariable("id") int id) {
+    	Phase phase =  phaseService.getPhaseById(id);
         if(phase != null) {
-			return new ResponseEntity<Optional<Phase>>(phase, HttpStatus.OK);
+			return new ResponseEntity<Phase>(phase, HttpStatus.OK);
         }else {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
