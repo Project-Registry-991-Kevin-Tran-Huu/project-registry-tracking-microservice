@@ -103,8 +103,9 @@ class IterationServiceTest {
 
         Iteration iteration = new Iteration();
         iteration.setId(12);
-        iteration.setStartDate(LocalDate.now().minusDays(1));
-        iteration.setEndDate(LocalDate.now());
+        LocalDate localDateNow = LocalDate.now();
+        iteration.setStartDate(localDateNow.minusDays(1));
+        iteration.setEndDate(localDateNow);
         iteration.setBatchId("107235");
 
         ResponseEntity<Iteration> expected = new ResponseEntity<Iteration>(iteration, HttpStatus.CREATED);
@@ -112,10 +113,10 @@ class IterationServiceTest {
 
         // check to see if the method returns the correct data
         Iteration input = new Iteration();
-        input.setStartDate(LocalDate.now().minusDays(1));
-        input.setEndDate(LocalDate.now());
+        input.setStartDate(localDateNow.minusDays(1));
+        input.setEndDate(localDateNow);
         ResponseEntity<Iteration> output = iterationService.createIteration(input);
-        assertThat(output.getBody()).isEqualToComparingOnlyGivenFields(expected.getBody(), "name", "description");
+        assertThat(output.getBody()).isEqualToComparingOnlyGivenFields(expected.getBody(), "batchId");
         assertThat(output.getBody().getId()).isNotZero();
     }
 
