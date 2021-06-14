@@ -1,11 +1,13 @@
 package com.revature.registry.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.revature.registry.model.Phase;
 import com.revature.registry.service.PhaseService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,11 +29,21 @@ public class PhaseController {
 
     @GetMapping("")
     public ResponseEntity<List<Phase>> getAllPhases() {
-        return phaseService.getAllPhases();
+        List<Phase> phase =  phaseService.getAllPhases();
+        if(phase != null) {
+			return new ResponseEntity<List<Phase>>(phase, HttpStatus.OK);
+        }else {
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
     
     @GetMapping("/id/{id}")
-    public ResponseEntity<Phase> getPhaseById(@PathVariable("id") int id) {
-        return phaseService.getPhaseById(id);
+    public ResponseEntity<Optional<Phase>> getPhaseById(@PathVariable("id") int id) {
+    	Optional<Phase> phase =  phaseService.getPhaseById(id);
+        if(phase != null) {
+			return new ResponseEntity<Optional<Phase>>(phase, HttpStatus.OK);
+        }else {
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
 }
