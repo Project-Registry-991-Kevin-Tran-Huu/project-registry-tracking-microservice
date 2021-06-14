@@ -3,39 +3,36 @@ package com.revature.registry.service;
 import java.util.List;
 import java.util.Optional;
 
-import lombok.extern.slf4j.Slf4j;
-
 import com.revature.registry.model.Status;
 import com.revature.registry.repository.StatusRepository;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Service;
 
-
 @Service
-@Slf4j
 public class StatusService {
-    private static Logger log = Logger.getLogger(StatusService.class);
+	private static Logger log = Logger.getLogger(StatusService.class);
 
-    @Autowired
-    private StatusRepository statusRepository;
+	@Autowired
+	private StatusRepository statusRepository;
 
+	public List<Status> getAllStatuses() {
 
-    public ResponseEntity<List<Status>> getAllStatuses() {
-        log.debug("Getting all statuses");
-        return ResponseEntity.ok(statusRepository.findAll());
-    }
-    
-    public ResponseEntity<Status> getStatusById(int id) {
-        log.debug("Getting status by Id");
-        Optional<Status> status = statusRepository.findById(id);
-        if (status.isPresent()) {
-            log.debug("Fetching Status with id of " + id);
-            return ResponseEntity.ok(status.get());
-        }
-        log.error("Unable to GET. status with id " + id + " not found");
-        return ResponseEntity.badRequest().build();
-    }
+		log.debug("Getting all statuses");
+		return statusRepository.findAll();
+	}
+
+	public Status getStatusById(int id) {
+		log.debug("Getting status by Id");
+		Optional<Status> status = statusRepository.findById(id);
+		if (status.isPresent()) {
+			log.debug("Fetching Status with id of " + id);
+			return status.get();
+		} else {
+			log.error("Unable to GET. status with id " + id + " not found");
+			return null;
+		}
+	}
 }
