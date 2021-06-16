@@ -11,6 +11,7 @@ import com.revature.registry.repository.IterationRepository;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -44,8 +45,10 @@ public ResponseEntity<Iteration> getIterationById(int id) {
 public ResponseEntity<Iteration> createIteration(Iteration iteration) {
     Iteration savedIteration = iterationRepository.save(iteration);
 
-    String location = String.format("/api/iteration/%s", savedIteration.getId());
-    return ResponseEntity.created(URI.create(location)).body(savedIteration);
+//    ResponseEntity<Iteration> responseEntity = ResponseEntity.created(URI.create(location)).body(savedIteration);
+//    return new ResponseEntity<Iteration>(responseEntity.getBody(), HttpStatus.CREATED);
+    return new ResponseEntity<Iteration>(savedIteration, HttpStatus.OK);
+//    return ResponseEntity.created(URI.create(location)).body(savedIteration);
 }
 
 public ResponseEntity<Iteration> updateIterationById(int id, Iteration newIteration) {
