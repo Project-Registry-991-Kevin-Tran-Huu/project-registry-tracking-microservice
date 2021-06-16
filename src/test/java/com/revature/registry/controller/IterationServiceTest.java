@@ -24,13 +24,6 @@ import com.revature.registry.model.Iteration;
 import com.revature.registry.repository.IterationRepository;
 import com.revature.registry.service.IterationService;
 
-
-
-
-
-
-
-
 @SpringBootTest(classes = ProjectRegistryTrackingApplication.class)
 @ExtendWith(SpringExtension.class)
 class IterationServiceTest {
@@ -131,7 +124,7 @@ class IterationServiceTest {
         iteration.setStartDate(LocalDate.now().minusDays(1));
         iteration.setEndDate(LocalDate.now());
         iteration.setBatchId("107235");
-        
+
         ResponseEntity<Iteration> expected = new ResponseEntity<Iteration>(iteration, HttpStatus.OK);
         // mock check to see if object with id exists in db
         when(iterationRepository.findById(anyInt())).thenReturn(Optional.of(iteration));
