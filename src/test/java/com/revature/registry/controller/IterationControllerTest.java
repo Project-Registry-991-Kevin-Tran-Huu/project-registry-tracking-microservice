@@ -103,7 +103,7 @@ class IterationControllerTest {
     @Test
     void should_get_appropriate_iteration_when_12isInput() throws Exception {
 
-        // mock the return of getProjectById from ProjectService
+        // mock the return of getIterationById from IterationService
         Iteration iteration = new Iteration();
         iteration.setId(12);
         LocalDate localDateNow = LocalDate.now();
@@ -188,7 +188,7 @@ class IterationControllerTest {
 
     @Test
     void should_return_no_content_when_delete_isCalled() throws Exception {
-        // mock the return of updateProject from ProjectService
+        // mock the return of updateIteration from IterationService
         when(iterationService.deleteIterationById(anyInt()))
                 .thenReturn(new ResponseEntity<Iteration>(HttpStatus.NO_CONTENT));
         // mock request to controller

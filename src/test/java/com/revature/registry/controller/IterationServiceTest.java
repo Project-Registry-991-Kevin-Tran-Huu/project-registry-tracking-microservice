@@ -43,7 +43,7 @@ class IterationServiceTest {
 
     @Test
     void when_getIterationByID_return_correct_list() {
-        // mock the return of getAllIterations from ProjectRepository
+        // mock the return of getAllIterations from IterationRepository
 
         Iteration iteration1 = new Iteration();
         iteration1.setId(12);
@@ -98,8 +98,8 @@ class IterationServiceTest {
     }
 
     @Test
-    void when_createIteration_return_created_project() {
-        // mock the return of getIterationById from IterationRepository
+    void when_createIteration_return_created_iteration() {
+        // mock the return of createIteration from IterationRepository
 
         Iteration iteration = new Iteration();
         iteration.setId(12);
@@ -116,12 +116,14 @@ class IterationServiceTest {
         input.setStartDate(localDateNow.minusDays(1));
         input.setEndDate(localDateNow);
         ResponseEntity<Iteration> output = iterationService.createIteration(input);
-        assertThat(output.getBody()).isEqualToComparingOnlyGivenFields(expected.getBody(), "batchId");
         assertThat(output.getBody().getId()).isNotZero();
+        assertThat(output.getBody()).isEqualToComparingOnlyGivenFields(expected.getBody(), "id");
+        assertThat(output.getBody()).isEqualToComparingOnlyGivenFields(expected.getBody(), "batchId");
+        assertThat(output).isEqualTo(expected);
     }
 
     @Test
-    void when_updateIterationByID_then_return_updated_project() {
+    void when_updateIterationByID_then_return_updated_iteration() {
         // mock the return of updateIterationById from IterationRepository
 
         Iteration iteration = new Iteration();
@@ -170,7 +172,7 @@ class IterationServiceTest {
 
     @Test
     void when_deleteIterationById_then_return_no_content() {
-        // mock the return of findById from IterationRepository
+        // mock the return of deleteIterationById from IterationRepository
 
         Iteration iteration = new Iteration();
         iteration.setId(12);
@@ -189,8 +191,8 @@ class IterationServiceTest {
     }
 
     @Test
-    void when_deleteProjectByID_and_id_invalid_then_return_bad_request() {
-        // mock the return of updateProjectById from IterationRepository
+    void when_deleteIterationByID_and_id_invalid_then_return_bad_request() {
+        // mock the return of deleteIterationById from IterationRepository
 
         Iteration iteration = new Iteration();
         iteration.setId(12);

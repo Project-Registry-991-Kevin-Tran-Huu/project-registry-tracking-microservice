@@ -45,10 +45,7 @@ public ResponseEntity<Iteration> getIterationById(int id) {
 public ResponseEntity<Iteration> createIteration(Iteration iteration) {
     Iteration savedIteration = iterationRepository.save(iteration);
 
-//    ResponseEntity<Iteration> responseEntity = ResponseEntity.created(URI.create(location)).body(savedIteration);
-//    return new ResponseEntity<Iteration>(responseEntity.getBody(), HttpStatus.CREATED);
-    return new ResponseEntity<Iteration>(savedIteration, HttpStatus.OK);
-//    return ResponseEntity.created(URI.create(location)).body(savedIteration);
+    return new ResponseEntity<Iteration>(savedIteration, HttpStatus.CREATED);
 }
 
 public ResponseEntity<Iteration> updateIterationById(int id, Iteration newIteration) {
