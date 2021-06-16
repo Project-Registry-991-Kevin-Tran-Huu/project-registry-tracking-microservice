@@ -38,8 +38,6 @@ import com.revature.registry.ProjectRegistryTrackingApplication;
 import com.revature.registry.model.Iteration;
 import com.revature.registry.service.IterationService;
 
-
-
 //TODO: Change JSON VALUES THAT STILL REFER TO PROJECT TESTING
 
 @SpringBootTest(classes = ProjectRegistryTrackingApplication.class)
@@ -60,7 +58,7 @@ class IterationControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(iterationController).build();
     }
 
-//    @Test
+    @Test
     void getAllIterationsReturnsData() throws Exception {
 
         // mock the return of getAllIteratons from IterationService
@@ -69,52 +67,61 @@ class IterationControllerTest {
         iteration1.setId(12);
         LocalDate localDateNow = LocalDate.now();
         LocalDate startDate = localDateNow.minusDays(1);
-        String startDateStr = startDate.toString();
         LocalDate endDate = localDateNow;
-        String endDateStr = localDateNow.toString();
         iteration1.setStartDate(startDate);
         iteration1.setEndDate(endDate);
         iteration1.setBatchId("107235");
 
-
         Iteration iteration2 = new Iteration();
         iteration2.setId(13);
-        iteration2.setStartDate(startDate);
-        iteration2.setEndDate(endDate);
+        LocalDate localDateNow2 = LocalDate.now();
+        LocalDate startDate2 = localDateNow2.minusDays(2);
+        LocalDate endDate2 = localDateNow2.minusDays(1);
+        iteration2.setStartDate(startDate2);
+        iteration2.setEndDate(endDate2);
         iteration2.setBatchId("107239");
 
         List<Iteration> iterations = Lists.newArrayList(iteration1, iteration2);
 
-        when(iterationService.getAllIterations()).thenReturn(new ResponseEntity<List<Iteration>>(iterations, HttpStatus.OK));
+        when(iterationService.getAllIterations())
+                .thenReturn(new ResponseEntity<List<Iteration>>(iterations, HttpStatus.OK));
 
         // mock request to controller
         mockMvc.perform(get("/api/iteration")).andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.*", isA(List.class)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].startDate").value(startDateStr))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].endDate").value(endDateStr))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(12))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].id").value(13));
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].startDate").value(startDate.toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].endDate").value(endDate.toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].batchId").value("107235"))
 
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].id").value(13))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].startDate").value(startDate2.toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].endDate").value(endDate2.toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].batchId").value("107239"));
     }
 
-//    @Test
+    @Test
     void should_get_appropriate_iteration_when_12isInput() throws Exception {
 
         // mock the return of getProjectById from ProjectService
         Iteration iteration = new Iteration();
         iteration.setId(12);
         LocalDate localDateNow = LocalDate.now();
-        iteration.setStartDate(localDateNow.minusDays(1));
-        iteration.setEndDate(localDateNow);
+        LocalDate startDate = localDateNow.minusDays(1);
+        LocalDate endDate = localDateNow;
+        iteration.setStartDate(startDate);
+        iteration.setEndDate(endDate);
         iteration.setBatchId("107235");
 
-        when(iterationService.getIterationById((anyInt()))).thenReturn(new ResponseEntity<Iteration>(iteration, HttpStatus.OK));
+        when(iterationService.getIterationById((anyInt())))
+                .thenReturn(new ResponseEntity<Iteration>(iteration, HttpStatus.OK));
 
         // mock request to controller
-        mockMvc.perform(get("/api/project/id/12")).andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("testProject"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(12))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.description").value("a project simply just for testing"));
+        mockMvc.perform(get("/api/iteration/id/12")).andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.startDate").value(startDate.toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.endDate").value(endDate.toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.batchId").value("107235"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(12));
     }
 
     @Test
@@ -124,22 +131,21 @@ class IterationControllerTest {
         iteration.setId(12);
         LocalDate localDateNow = LocalDate.now();
         LocalDate startDate = localDateNow.minusDays(1);
-        String startDateStr = startDate.toString();
         LocalDate endDate = localDateNow;
-        String endDateStr = localDateNow.toString();
         iteration.setStartDate(startDate);
         iteration.setEndDate(endDate);
         iteration.setBatchId("107235");
-
 
         when(iterationService.createIteration(any(Iteration.class)))
                 .thenReturn(new ResponseEntity<Iteration>(iteration, HttpStatus.OK));
         // mock request to controller
         mockMvc.perform(post("/api/iteration").contentType(MediaType.APPLICATION_JSON)
+        // The BELOW results in additional attributes from LocalDate to JSON.
 //                .content(new ObjectMapper().writeValueAsString(iteration))).andExpect(status().isOk())
-        .content(makeMapper().writeValueAsString(iteration))).andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.startDate").value(startDateStr))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.endDate").value(endDateStr))
+                // So using makeMapper() with additional modules for LocalDate
+                .content(makeMapper().writeValueAsString(iteration))).andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.startDate").value(startDate.toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.endDate").value(endDate.toString()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.batchId").value("107235"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(12));
     }
@@ -151,32 +157,40 @@ class IterationControllerTest {
         mapper.registerModule(new JavaTimeModule());
         return mapper;
     }
-//    @Test
+
+    @Test
     void should_update_iteration_when_valid_input() throws JsonProcessingException, Exception {
         // mock the return of updateIteration from IterationService
         Iteration iteration = new Iteration();
         iteration.setId(12);
         LocalDate localDateNow = LocalDate.now();
-        iteration.setStartDate(localDateNow.minusDays(1));
-        iteration.setEndDate(localDateNow);
+        LocalDate startDate = localDateNow.minusDays(1);
+        LocalDate endDate = localDateNow;
+        iteration.setStartDate(startDate);
+        iteration.setEndDate(endDate);
         iteration.setBatchId("107235");
-
 
         when(iterationService.updateIterationById(anyInt(), any(Iteration.class)))
                 .thenReturn(new ResponseEntity<Iteration>(iteration, HttpStatus.OK));
 
         // mock request to controller
-        mockMvc.perform(put("/api/project/id/12").contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(iteration))).andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("testProject"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(12))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.description").value("this has been updated"));
+        mockMvc.perform(put("/api/iteration/id/12").contentType(MediaType.APPLICATION_JSON)
+        // The BELOW results in additional attributes from LocalDate to JSON.
+//              .content(new ObjectMapper().writeValueAsString(iteration))).andExpect(status().isOk())
+                // So using makeMapper() with additional modules for LocalDate
+                .content(makeMapper().writeValueAsString(iteration))).andExpect(status().isOk())
+
+                .andExpect(MockMvcResultMatchers.jsonPath("$.startDate").value(startDate.toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.endDate").value(endDate.toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.batchId").value("107235"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(12));
     }
 
-//    @Test
+    @Test
     void should_return_no_content_when_delete_isCalled() throws Exception {
         // mock the return of updateProject from ProjectService
-        when(iterationService.deleteIterationById(anyInt())).thenReturn(new ResponseEntity<Iteration>(HttpStatus.NO_CONTENT));
+        when(iterationService.deleteIterationById(anyInt()))
+                .thenReturn(new ResponseEntity<Iteration>(HttpStatus.NO_CONTENT));
         // mock request to controller
         mockMvc.perform(delete("/api/iteration/id/12")).andExpect(status().isNoContent());
     }
