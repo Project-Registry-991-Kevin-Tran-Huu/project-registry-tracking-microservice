@@ -25,17 +25,18 @@
 		<sonar.organization>revaturelabs-screenforce</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 		<sonar.exclusions>src/**/model/**/*</sonar.exclusions>
-        <log4j.configuration>log4j.properties</log4j.configuration>
+		<log4j.configuration>log4j.properties</log4j.configuration>
+		<spring-cloud.version>Hoxton.SR11</spring-cloud.version>
 	</properties>
 
 	<dependencies>
-	
-	<dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
-        </dependency>
-	
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -80,8 +81,18 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
-	</dependencies>
+	 	<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-consul-discovery</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+			
+		</dependency>
 
+	</dependencies>
+	
 	<build>
 		<finalName>app</finalName>
 		<plugins>
@@ -169,6 +180,18 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<reporting>
 		<!-- (Optional) Reporting for Checkstyle -->
