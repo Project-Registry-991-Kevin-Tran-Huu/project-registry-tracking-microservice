@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -10,10 +10,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.revature</groupId>
-	<artifactId>project-registry-backend</artifactId>
+	<artifactId>project-registry-tracking-microservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>project-registry-tracking</name>
-	<description>Project Tracking microservice for Project Registry</description>
+	<name>project-registry-tracking-microservice</name>
+	<description>Project Mircoservice for Backend Repository</description>
 
 	<properties>
 		<java.version>8</java.version>
@@ -35,6 +35,15 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-consul-discovery</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
 
 		<dependency>
@@ -81,107 +90,9 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
-	 	<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-consul-discovery</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-config</artifactId>
-			
-		</dependency>
-
 	</dependencies>
 	
-	<build>
-		<finalName>app</finalName>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<!-- This configuration is needed for the Dockerfile's builder pattern -->
-				<configuration>
-					<layers>
-						<enabled>true</enabled>
-					</layers>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>${checkstyle-maven-plugin.version}</version> <!-- Note use of property -->
-				<configuration>
-					<configLocation>${basedir}/rev_checks.xml</configLocation> <!-- Can vary based on the location on your machine -->
-					<includeTestSourceDirectory>true</includeTestSourceDirectory>
-					<suppressionsLocation>suppressions.xml</suppressionsLocation>
-					<suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
-					<consoleOutput>true</consoleOutput>
-					<propertyExpansion>checkstyle.config.path=${basedir}</propertyExpansion>
-					<encoding>UTF-8</encoding>
-					<consoleOutput>true</consoleOutput>
-					<failsOnError>true</failsOnError>
-					<linkXRef>false</linkXRef>
-				</configuration>
-				<executions>
-					<execution>
-						<id>validate</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-				<dependencies>
-					<dependency>
-						<groupId>com.puppycrawl.tools</groupId>
-						<artifactId>checkstyle</artifactId>
-						<version>${puppycrawl-checkstyle.version}</version> <!-- Note use of property -->
-					</dependency>
-				</dependencies>
-			</plugin>
-
-			<!-- Code Coverage Report Generation -->
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.4</version>
-				<configuration>
-					<outputDirectory>${coverage.reports.dir}</outputDirectory>
-					<excludes>
-						<exclude>/model/</exclude>
-					</excludes>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>report</id>
-						<phase>test</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
-	
-	<dependencyManagement>
+		<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
@@ -192,6 +103,97 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
+	<build>
+		<finalName>app</finalName>
+		<!-- pluginManagement is for eclipse ide only  -->
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<!-- This configuration is needed for the Dockerfile's builder pattern -->
+					<configuration>
+						<layers>
+							<enabled>true</enabled>
+						</layers>
+						<excludes>
+							<exclude>
+								<groupId>org.projectlombok</groupId>
+								<artifactId>lombok</artifactId>
+							</exclude>
+						</excludes>
+						<excludes>
+							<exclude>
+								<groupId>org.projectlombok</groupId>
+								<artifactId>lombok</artifactId>
+							</exclude>
+						</excludes>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-checkstyle-plugin</artifactId>
+					<version>${checkstyle-maven-plugin.version}</version> <!-- Note use of property -->
+					<configuration>
+						<configLocation>${basedir}/rev_checks.xml</configLocation> <!-- Can vary based on the location on your machine -->
+						<includeTestSourceDirectory>true</includeTestSourceDirectory>
+						<suppressionsLocation>suppressions.xml</suppressionsLocation>
+						<suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
+						<consoleOutput>true</consoleOutput>
+						<propertyExpansion>checkstyle.config.path=${basedir}</propertyExpansion>
+						<encoding>UTF-8</encoding>
+						<consoleOutput>true</consoleOutput>
+						<failsOnError>true</failsOnError>
+						<linkXRef>false</linkXRef>
+					</configuration>
+					<executions>
+						<execution>
+							<id>validate</id>
+							<phase>validate</phase>
+							<goals>
+								<goal>check</goal>
+							</goals>
+						</execution>
+					</executions>
+					<dependencies>
+						<dependency>
+							<groupId>com.puppycrawl.tools</groupId>
+							<artifactId>checkstyle</artifactId>
+							<version>${puppycrawl-checkstyle.version}</version> <!-- Note use of property -->
+						</dependency>
+					</dependencies>
+				</plugin>
+
+				<!-- Code Coverage Report Generation -->
+				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>0.8.4</version>
+					<configuration>
+						<outputDirectory>${coverage.reports.dir}</outputDirectory>
+						<excludes>
+							<exclude>/model/</exclude>
+						</excludes>
+					</configuration>
+					<executions>
+						<execution>
+							<goals>
+								<goal>prepare-agent</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>report</id>
+							<phase>test</phase>
+							<goals>
+								<goal>report</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 
 	<reporting>
 		<!-- (Optional) Reporting for Checkstyle -->
