@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class LoggingAspect {
-	
+	/*
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Pointcut
 	public void springBeanPointcut() {
     }
-
+*/
 }
