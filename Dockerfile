@@ -7,10 +7,8 @@ RUN cp target/app.jar app.jar
 FROM openjdk:8-jdk-alpine
 ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} app.jar
-WORKDIR /app
-ARG DEPENDENCY=/app
-COPY --from=builder $DEPENDENCY/dependencies/ ./
-COPY --from=builder $DEPENDENCY/snapshot-dependencies/ ./
-COPY --from=builder $DEPENDENCY/spring-boot-loader/ ./
-COPY --from=builder $DEPENDENCY/application/ ./
+ARG DEPENDENCY=target/dependency
+COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
+COPY ${DEPENDENCY}/META-INF /app/META-INF
+COPY ${DEPENDENCY}/BOOT-INF/classes /app
 ENTRYPOINT ["java","-jar","/app.jar"]
