@@ -2,6 +2,8 @@ FROM maven:3.6.3-jdk-11-slim as builder
 WORKDIR /app
 COPY . .
 RUN mvn clean package -DskipTests=true
+RUN cp target/app.jar app.jar
+RUN java -Djarmode=layertools -jar app.jar extract
 
 FROM openjdk:8-jdk-alpine
 ARG JAR_FILE=target/*.jar
