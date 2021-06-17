@@ -1,14 +1,19 @@
+
 FROM maven:3.6.3-jdk-11-slim as builder
 WORKDIR /app
 COPY . .
 RUN mvn clean package -DskipTests=true
 RUN cp target/app.jar app.jar
 
-FROM openjdk:8-jdk-alpine
-RUN addgroup -S spring && adduser -S spring -G spring
-USER spring:spring
-ARG DEPENDENCY=target/dependency
-COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
-COPY ${DEPENDENCY}/META-INF /app/META-INF
-COPY ${DEPENDENCY}/BOOT-INF/classes /app
-ENTRYPOINT ["java","-cp","app:app/lib/*","tracking-microservice.Application"]
+FROM adoptopenjdk:8-jre-hotspot
+ENV JAVA_MEM_OPTS="-Xms512m -Xmx512m"
+ENV JAVA_OPTS="${JAVA_OPTS} -XX:+UnlockExperimentalVMOptions -XX:+UseZGC"
+ENV JAVA_OPTS="${JAVA_OPTS} ${JAVA_MEM_OPTS}"
+ENV JAVA_OPTS="${JAVA_OPTS} -Dspring.profiles.active=default"
+WORKDIR /app
+ARG DEPENDENCY=/app
+COPY --from=builder $DEPENDENCY/dependencies/ ./
+COPY --from=builder $DEPENDENCY/snapshot-dependencies/ ./
+COPY --from=builder $DEPENDENCY/spring-boot-loader/ ./
+COPY --from=builder $DEPENDENCY/application/ ./
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom org.springframework.boot.loader.JarLauncher"]
