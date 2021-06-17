@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.revature</groupId>
-	<artifactId>project-registry-backend</artifactId>
+	<artifactId>project-registry-tracking-microservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>project-registry-tracking</name>
+	<name>project-registry-tracking-microservice</name>
 	<description>Project Tracking microservice for Project Registry</description>
 
 	<properties>
