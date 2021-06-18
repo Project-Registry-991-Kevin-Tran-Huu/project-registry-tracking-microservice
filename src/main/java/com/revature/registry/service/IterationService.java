@@ -10,10 +10,7 @@ import org.springframework.stereotype.Service;
 import com.revature.registry.model.Iteration;
 import com.revature.registry.repository.IterationRepository;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Service
-@Slf4j
 public class IterationService {
     private static Logger log = Logger.getLogger(IterationService.class);
 
