@@ -14,7 +14,7 @@ git 'https://github.com/Project-Registry-991-Kevin-Tran-Huu/project-registry-tra
 stage('Building image') {
 steps{
 script {
-dockerImage = docker build -t devaraj1234/microservice-registry:tracking-service . + ":$BUILD_NUMBER"
+dockerImage = docker build -t registry+ ":$BUILD_NUMBER"
 }
 }
 }
