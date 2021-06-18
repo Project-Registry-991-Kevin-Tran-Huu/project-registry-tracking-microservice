@@ -6,11 +6,6 @@ dockerImage = ''
 }
 agent any
 stages {
-stage('Cloning Git') {
-steps {
-git 'https://github.com/Project-Registry-991-Kevin-Tran-Huu/project-registry-tracking-microservice.git'
-}
-}
 stage('Building image') {
 steps{
 script {
