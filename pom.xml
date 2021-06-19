@@ -13,7 +13,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/x
 	<artifactId>project-registry-tracking-microservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>project-registry-tracking-microservice</name>
-	<description>Project Mircoservice for Backend Repository</description>
+	<description>Project Tracking microservice for Project Registry</description>
 
 	<properties>
 		<java.version>8</java.version>
