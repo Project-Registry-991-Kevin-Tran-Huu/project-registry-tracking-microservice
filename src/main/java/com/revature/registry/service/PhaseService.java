@@ -16,8 +16,8 @@ public class PhaseService {
 
 	public List<Phase> getAllPhases() {
 
-		List<Phase> phase = phaseRepository.findAll();
-		return phase;
+	    return phaseRepository.findAll();
+		
 	}
 
 	public Phase  getPhaseById(int id) {

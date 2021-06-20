@@ -11,6 +11,7 @@ import java.util.Optional;
 
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -84,7 +85,7 @@ class IterationServiceTest {
 
         // check to see if the method returns the correct data
         Iteration output = iterationService.getIterationById(13);
-        assertThat(output).isEqualTo(null);
+        assertThat(output).isNull();
     }
 
     @Test
@@ -151,7 +152,7 @@ class IterationServiceTest {
         input.setStartDate(LocalDate.now().minusDays(1));
         input.setEndDate(LocalDate.now());
         Iteration output = iterationService.updateIterationById(12, input);
-        assertThat(output).isEqualTo(null);
+        assertThat(output).isNull();
     }
 
     @Test
@@ -171,7 +172,7 @@ class IterationServiceTest {
 
         // check to see if the method returns the correct data
         boolean output = iterationService.deleteIterationById(12);
-        assertThat(output).isEqualTo(true);
+        assertThat(output).isTrue();
     }
 
     @Test
@@ -190,7 +191,7 @@ class IterationServiceTest {
 
         // check to see if the method returns the correct data
         boolean output = iterationService.deleteIterationById(12);
-        assertThat(output).isEqualTo(false);
+        assertFalse(output);
     }
 
 }

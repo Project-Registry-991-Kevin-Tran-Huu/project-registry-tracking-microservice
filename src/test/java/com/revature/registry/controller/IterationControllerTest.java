@@ -13,11 +13,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.time.LocalDate;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -34,6 +38,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import com.revature.registry.ProjectRegistryTrackingApplication;
 import com.revature.registry.model.Iteration;
+import com.revature.registry.model.dto.IterationDTO;
 import com.revature.registry.service.IterationService;
 
 @SpringBootTest(classes = ProjectRegistryTrackingApplication.class)
@@ -41,6 +46,7 @@ import com.revature.registry.service.IterationService;
 class IterationControllerTest {
 
     private MockMvc mockMvc;
+    private ModelMapper modelMapper = new ModelMapper();
 
     @Autowired
     @InjectMocks
@@ -184,6 +190,15 @@ class IterationControllerTest {
         when(iterationService.deleteIterationById(anyInt())).thenReturn(Boolean.TRUE);
         // mock request to controller
         mockMvc.perform(delete("/api/iteration/id/12")).andExpect(status().isNoContent());
+    }
+    
+    @Test
+    void convertToEntityTest() {
+        IterationDTO iterDto = new IterationDTO();
+        iterDto.setId(1);
+        
+        Iteration iter = modelMapper.map(iterDto, Iteration.class);
+        assertEquals(iterDto.getId(),iter.getId());
     }
 
 }
