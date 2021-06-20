@@ -18,3 +18,4 @@ COPY --from=builder $DEPENDENCY/snapshot-dependencies/ ./
 COPY --from=builder $DEPENDENCY/spring-boot-loader/ ./
 COPY --from=builder $DEPENDENCY/application/ ./
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom org.springframework.boot.loader.JarLauncher"]
+
