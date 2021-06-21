@@ -45,12 +45,10 @@ import com.revature.registry.service.IterationService;
 @ExtendWith(SpringExtension.class)
 class IterationControllerTest {
 
-<<<<<<< HEAD
+
     private MockMvc mockMvc;
     private ModelMapper modelMapper = new ModelMapper();
-=======
-	private MockMvc mockMvc;
->>>>>>> c9a1e6bf2ab32ac448cb34133220a8a2f4835186
+
 
     @Autowired
     @InjectMocks
