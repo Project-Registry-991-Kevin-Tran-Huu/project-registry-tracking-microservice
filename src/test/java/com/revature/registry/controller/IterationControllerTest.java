@@ -40,7 +40,7 @@ import com.revature.registry.service.IterationService;
 @ExtendWith(SpringExtension.class)
 class IterationControllerTest {
 
-    private MockMvc mockMvc;
+	private MockMvc mockMvc;
 
     @Autowired
     @InjectMocks
