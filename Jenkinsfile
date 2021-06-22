@@ -1,4 +1,5 @@
 pipeline {
+    def dockerImageTag = "${dockerRepoUrl}/${dockerImageName}:${env.BUILD_NUMBER}"
     agent any
     stages {
         stage ('build'){
@@ -13,7 +14,14 @@ pipeline {
 		  		archive 'target/*.jar'
         	}
     	}
-
+    	stage('Build Docker Image') {
+      		steps {
+      		   sh "ls -all /var/run/docker.sock"
+      			sh "mv ./target/app*.jar ./data" 
+      			dockerImage = docker.build("tracking-microservice")
+    		}
+    	}
+    
     
     }
 }
