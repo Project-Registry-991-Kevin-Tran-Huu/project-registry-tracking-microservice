@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage ('build'){
         	steps {
-             	sh 'mvn clean package spring-boot:repackage -DskipTests=true'
+             	sh 'mvn clean package spring-boot:repackage'
              	}
         	}
         stage('Publish Tests Results'){
