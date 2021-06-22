@@ -21,7 +21,7 @@ pipeline {
     	
     	stage('Build Docker Image') {
       		steps{
-      			sh 'docker build -t devaraj1234/microservice-registry:tracking'
+      			sh 'docker build -t devaraj1234/microservice-registry:tracking .'
       		}
     	}
     
