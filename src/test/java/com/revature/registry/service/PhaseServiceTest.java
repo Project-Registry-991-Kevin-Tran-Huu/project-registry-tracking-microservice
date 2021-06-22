@@ -20,7 +20,7 @@ import com.revature.registry.repository.PhaseRepository;
 
 @SpringBootTest(classes = ProjectRegistryTrackingApplication.class)
 @ExtendWith(SpringExtension.class)
-public class PhaseServiceTest {
+ class PhaseServiceTest {
 	
 	private static Phase phase1, phase2;
 	private static List<Phase> phaseList;
@@ -44,19 +44,19 @@ public class PhaseServiceTest {
 	}
 	
 	@Test
-	public void getAllPhaseTest1() {
+	 void getAllPhaseTest1() {
 		Mockito.when(phaseService.getAllPhases()).thenReturn(phaseList);
 		assertEquals(2, phaseService.getAllPhases().size());
 	}
 	
 	@Test
-	public void getPhaseByIdTest() {
+	 void getPhaseByIdTest() {
 		Mockito.when(phaseService.getPhaseById(1)).thenReturn(phase1);
 		assertEquals(phase1, phaseService.getPhaseById(1));
 	}
 	
 	@Test
-	public void getPhaseByIdTest1() {
+	 void getPhaseByIdTest1() {
 		Mockito.when(phaseService.getPhaseById(2)).thenReturn(phase2);
 		assertEquals(phase2, phaseService.getPhaseById(2));
 	}

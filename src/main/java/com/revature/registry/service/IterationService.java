@@ -18,20 +18,22 @@ public class IterationService {
     private IterationRepository iterationRepository;
 
     public List<Iteration> getAllIterations() {
-
+        log.info("Fetching all iterations: "+ iterationRepository.findAll());
         return iterationRepository.findAll();
     }
 
     public Iteration getIterationById(int id) {
         Optional<Iteration> iteration = iterationRepository.findById(id);
         if (iteration.isPresent()) {
+            log.info("Fetching Iteration with id: "+ id);
             return iteration.get();
         }
-        log.error("Unable to GET. Iteration with id " + id);
+        log.error("Unable to GET. Iteration with id " + id+" not found.");
         return null;
     }
 
     public Iteration createIteration(Iteration iteration) {
+        log.debug("Iteration created with the following properties: "+ iteration.toString());
         return iterationRepository.save(iteration);
     }
 

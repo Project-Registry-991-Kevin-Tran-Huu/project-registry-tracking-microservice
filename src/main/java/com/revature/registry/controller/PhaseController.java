@@ -30,9 +30,9 @@ public class PhaseController {
     public ResponseEntity<List<Phase>> getAllPhases() {
         List<Phase> phase =  phaseService.getAllPhases();
         if(phase != null) {
-			return new ResponseEntity<List<Phase>>(phase, HttpStatus.OK);
+			return new ResponseEntity<>(phase, HttpStatus.OK);
         }else {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().build();
         }
     }
     
@@ -40,9 +40,9 @@ public class PhaseController {
     public ResponseEntity<Phase> getPhaseById(@PathVariable("id") int id) {
     	Phase phase =  phaseService.getPhaseById(id);
         if(phase != null) {
-			return new ResponseEntity<Phase>(phase, HttpStatus.OK);
+			return new ResponseEntity<>(phase, HttpStatus.OK);
         }else {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+			return ResponseEntity.badRequest().build();
         }
     }
 }
