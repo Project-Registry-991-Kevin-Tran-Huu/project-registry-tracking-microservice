@@ -23,6 +23,8 @@ pipeline {
     	
     	stage('Build Docker Image') {
       		steps{
+ 				sh 'docker stop tracking || true && docker rm tracking || true'
+ 				sh 'docker image rm devaraj1234/microservice-registry:tracking || true'
       			sh 'docker build -t devaraj1234/microservice-registry:tracking .'
       		}
     	}
@@ -32,6 +34,7 @@ pipeline {
             script {
 				docker.withRegistry( '', registryCredential ) {
                 	sh 'docker push devaraj1234/microservice-registry:tracking'
+                	sh 'docker image rm devaraj1234/microservice-registry:tracking || true'
                 	}
                	}
               }
@@ -39,7 +42,7 @@ pipeline {
            
         stage('Run Docker Image') {
         steps{
-
+        	sh 'docker pull devaraj1234/microservice-registry:tracking'
         	sh 'docker run -d --name=tracking --link consul:consul -p 8083:8083 devaraj1234/microservice-registry:tracking'
         }
         
