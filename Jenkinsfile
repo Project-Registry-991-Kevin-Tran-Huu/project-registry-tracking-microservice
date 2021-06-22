@@ -1,11 +1,15 @@
 pipeline {
-    agent any
+	agent any
     stages {
-  
-    stage('Build Project') {
+        stage('Build Project') {
       // build project via maven
       sh "mvn clean package spring-boot:repackage -DskipTests=true"
+    	}
     }
+}
+
+  
+
 	
 	stage('Publish Tests Results'){
       parallel(
