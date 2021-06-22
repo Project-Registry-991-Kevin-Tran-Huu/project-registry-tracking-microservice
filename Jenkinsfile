@@ -24,6 +24,15 @@ pipeline {
       			sh 'docker build -t devaraj1234/microservice-registry:tracking .'
       		}
     	}
+    	
+    	stage('Push Docker image') {
+            steps {
+            script {
+				docker.withRegistry( '', registryCredential ) {
+                sh 'docker push devaraj1234/microservice-registry:tracking'
+                }
+               }
+            }
     
     }
 }
