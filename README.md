@@ -24,7 +24,20 @@ To-do List:
 * Create separate database structure for this microservice.
 
 ## Usage
+* This application serves as an API for the Registry frontend.
+* Entering the base endpoints into a web browser will process a get request from the api. Returning a full list of the respective database entities. 
+  - Iteration endpoint: /api/iteration
+  - Phase endpoint: /api/phase
+  - Status endpoint: /api/status
+* Adding "/id/{id}" to a base endpoint retrieves a specific entity object by its id.
+* Other API calls require execution from the front end or from a testing application like Postman.
 
 # Running Locally
+* git clone https://github.com/Project-Registry-991-Kevin-Tran-Huu/project-registry-tracking-microservice.git
+* Run this project in Eclipse or SpringToolSuite
+* Do a Maven update to import the dependencies needed from the pom.xml
+* Launch a Consul instance from a Docker container on port 8500
+* Launch this application using spring boot.
+* This app will run at http://localhost:8083
 
 # Docker Image
