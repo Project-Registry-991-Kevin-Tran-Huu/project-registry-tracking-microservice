@@ -1,5 +1,9 @@
 pipeline {
-    def dockerImageTag = "${dockerRepoUrl}/${dockerImageName}:${env.BUILD_NUMBER}"
+	environment {
+		registry = "devaraj1234/microservice-registry"
+		registryCredential = 'docker_hub_id'
+		dockerImage = ''
+	}	
     agent any
     stages {
         stage ('build'){
@@ -14,13 +18,13 @@ pipeline {
 		  		archive 'target/*.jar'
         	}
     	}
-    	stage('Build Docker Image') {
-      		steps {
-      		   sh "ls -all /var/run/docker.sock"
-      			sh "mv ./target/app*.jar ./data" 
-      			dockerImage = docker.build("tracking-microservice")
-    		}
-    	}
+    	stage('Building image') {
+			steps{
+			script {
+				dockerImage = docker build -t registry+ ":$BUILD_NUMBER"
+			}
+		}
+	}
     
     
     }
