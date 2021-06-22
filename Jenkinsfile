@@ -18,6 +18,14 @@ pipeline {
 		  		archive 'target/*.jar'
         	}
     	}
+    	
+    	stage('Build Docker Image') {
+      		steps{
+      			sh 'ls -all /var/run/docker.sock'
+      			sh 'mv ./target/app*.jar ./data' 
+      			sh "$dockerImage = 'docker build -t registry+ ":$BUILD_NUMBER"'"
+      		}
+    	}
     
     }
 }
