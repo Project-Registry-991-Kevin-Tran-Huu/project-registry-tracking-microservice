@@ -18,14 +18,7 @@ pipeline {
 		  		archive 'target/*.jar'
         	}
     	}
-    	stage('Building image') {
-			steps{
-			script {
-				dockerImage = docker build -t registry+ ":$BUILD_NUMBER"
-			}
-		}
-	}
-    
+    	
     
     }
 }
