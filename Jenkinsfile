@@ -6,11 +6,13 @@ pipeline {
 	}	
     agent any
     stages {
-        stage ('build'){
+       
+        stage ('Build Application'){
         	steps {
              	sh 'mvn clean package spring-boot:repackage'
              	}
         	}
+        
         stage('Publish Tests Results'){
       		steps {
           		echo "Publish junit Tests Results"
@@ -34,6 +36,14 @@ pipeline {
                	}
               }
            }
-    
+           
+        stage('Run Docker Image') {
+        steps{
+
+        	sh 'docker run -d --name=tracking --link consul:consul -p 8083:8083 devaraj1234/microservice-registry:tracking'
+        }
+        
+        }
+        
     }
 }
