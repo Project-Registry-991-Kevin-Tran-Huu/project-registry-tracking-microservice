@@ -29,10 +29,11 @@ pipeline {
             steps {
             script {
 				docker.withRegistry( '', registryCredential ) {
-                sh 'docker push devaraj1234/microservice-registry:tracking'
-                }
-               }
-            }
+                	sh 'docker push devaraj1234/microservice-registry:tracking'
+                	}
+               	}
+              }
+           }
     
     }
 }
