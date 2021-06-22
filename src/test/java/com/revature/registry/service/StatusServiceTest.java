@@ -68,6 +68,6 @@ class StatusServiceTest {
 		when(statusRepository.findById((anyInt()))).thenReturn(Optional.empty());
 		
 		// check to see if the method returns the correct data
-		assertThat(statusService.getStatusById(1)).isEqualTo(null);
+		assertThat(statusService.getStatusById(1)).isNull();;
 	}
 }

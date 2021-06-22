@@ -2,6 +2,8 @@ package com.revature.registry.controller;
 
 import java.util.List;
 
+import org.apache.http.ParseException;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.registry.model.Iteration;
+import com.revature.registry.model.dto.IterationDTO;
 import com.revature.registry.service.IterationService;
 
 @RestController
@@ -25,6 +28,10 @@ import com.revature.registry.service.IterationService;
 public class IterationController {
     @Autowired
     private IterationService iterationService;
+    
+    @Autowired
+    private ModelMapper modelMapper;
+
 
     @GetMapping("")
     public ResponseEntity<List<Iteration>> getAllIterations() {
@@ -42,16 +49,19 @@ public class IterationController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Iteration> createIteration(@RequestBody Iteration iteration) {
+    public ResponseEntity<Iteration> createIteration(@RequestBody IterationDTO iterationDto) {
+        Iteration iteration = convertToEntity(iterationDto);
         Iteration savedIteration = iterationService.createIteration(iteration);
-        return new ResponseEntity<Iteration>(savedIteration, HttpStatus.OK);
+        return new ResponseEntity<>(savedIteration, HttpStatus.OK);
     }
 
     @PutMapping("id/{id}")
-    public ResponseEntity<Iteration> updateIteration(@PathVariable("id") int id, @RequestBody Iteration iteration) {
+    public ResponseEntity<Iteration> updateIteration(@PathVariable("id") int id, @RequestBody IterationDTO iterationDto) {
+        
+        Iteration iteration = convertToEntity(iterationDto);
         Iteration iterationUpdated = iterationService.updateIterationById(id, iteration);
         if (iterationUpdated != null) {
-            return new ResponseEntity<Iteration>(iterationUpdated, HttpStatus.OK);
+            return new ResponseEntity<>(iterationUpdated, HttpStatus.OK);
         } else {
             return ResponseEntity.badRequest().build();
         }
@@ -65,6 +75,11 @@ public class IterationController {
         } else {
             return ResponseEntity.badRequest().build();
         }
+    }
+    
+    private Iteration convertToEntity(IterationDTO iterDto)throws ParseException{
+        return modelMapper.map(iterDto, Iteration.class);
+        
     }
 
 }

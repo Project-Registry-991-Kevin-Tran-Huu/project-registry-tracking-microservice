@@ -26,7 +26,7 @@ import com.revature.registry.service.PhaseService;
 
 @SpringBootTest(classes = ProjectRegistryTrackingApplication.class)
 @ExtendWith(SpringExtension.class)
-public class PhaseControllerTest {
+ class PhaseControllerTest {
 
 	private static Phase phase1, phase2;
 	private static List<Phase> phaseList;
@@ -53,7 +53,7 @@ public class PhaseControllerTest {
 	}
 
 	@Test
-	public void getAllPhaseTest() throws Exception {
+	 void getAllPhaseTest() throws Exception {
 
 		when(phaseService.getAllPhases()).thenReturn(phaseList);
 
@@ -68,7 +68,7 @@ public class PhaseControllerTest {
 	}
 
 	@Test
-	public void getPhaseByIdTest() throws Exception {
+	 void getPhaseByIdTest() throws Exception {
 		when(phaseService.getPhaseById(1)).thenReturn(phase1);
 
 		mockMvc.perform(get("/api/phase/id/1")).andExpect(status().isOk())
@@ -78,7 +78,7 @@ public class PhaseControllerTest {
 	}
 	
 	@Test
-	public void getPhaseByIdTest2() throws Exception {
+	 void getPhaseByIdTest2() throws Exception {
 		when(phaseService.getPhaseById(2)).thenReturn(phase2);
 
 		mockMvc.perform(get("/api/phase/id/2")).andExpect(status().isOk())
