@@ -23,9 +23,9 @@ pipeline {
       		steps{
       			sh "ls -all /var/run/docker.sock"
       			sh "mv ./target/app*.jar ./data" 
-      			dockerImage = docker.build("tracking-service")
-      }
-    }
+      			dockerImage = docker build -t registry+ ":$BUILD_NUMBER"
+      		}
+    	}
     
     }
 }
