@@ -52,9 +52,7 @@ public class IterationController {
     public ResponseEntity<Iteration> createIteration(@RequestBody IterationDTO iterationDto) {
         Iteration iteration = convertToEntity(iterationDto);
         Iteration savedIteration = iterationService.createIteration(iteration);
-        return new ResponseEntity<>(savedIteration, HttpStatus.OK);
-        System.out.println("Testing for Jenkins");
-        
+        return new ResponseEntity<>(savedIteration, HttpStatus.OK);        
     }
 
     @PutMapping("id/{id}")
