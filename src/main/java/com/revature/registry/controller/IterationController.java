@@ -24,7 +24,7 @@ import com.revature.registry.service.IterationService;
 
 @RestController
 @RequestMapping(value = "/api/iteration", produces = MediaType.APPLICATION_JSON_VALUE)
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 public class IterationController {
     @Autowired
     private IterationService iterationService;
