@@ -33,6 +33,7 @@ To-do List:
 * Other API calls require execution from the front end or from a testing application like Postman.
 
 # Running Locally
+#### Reference the **Running Locally** section in https://github.com/Project-Registry-991-Kevin-Tran-Huu/project-registry-gateway and have it running before this service
 * git clone https://github.com/Project-Registry-991-Kevin-Tran-Huu/project-registry-tracking-microservice.git
 * Run this project in Eclipse or SpringToolSuite
 * Do a Maven update to import the dependencies needed from the pom.xml
