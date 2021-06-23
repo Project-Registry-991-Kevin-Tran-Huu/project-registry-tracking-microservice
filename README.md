@@ -38,6 +38,7 @@ This is a microservice representation of the Registry Backend. This microservice
 * Run this project in Eclipse or SpringToolSuite
 * Do a Maven update to import the dependencies needed from the pom.xml
 * Launch a Consul instance from a Docker container on port 8500
+* Launch the Gateway service
 * Launch this application using spring boot.
 * This app will run at http://localhost:8083
 
