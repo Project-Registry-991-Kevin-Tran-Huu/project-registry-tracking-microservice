@@ -29,7 +29,7 @@ pipeline {
       		}
     	}
     	
-    	stage('Push Docker image') {
+    	stage('Push Docker Image') {
             steps {
             script {
 				docker.withRegistry( '', registryCredential ) {
@@ -40,7 +40,7 @@ pipeline {
               }
            }
            
-        stage('Run Docker Image') {
+        stage('Pull & Run Docker Image') {
         steps{
         	sh 'docker pull devaraj1234/microservice-registry:tracking'
         	sh 'docker run -d --name=tracking --link consul:consul -p 8083:8083 devaraj1234/microservice-registry:tracking'
