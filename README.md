@@ -20,7 +20,7 @@ This is a microservice representation of the Registry Backend. This microservice
 * CRUD operations for Iteration, Phase, and Status.
 * Has API endpoints to connect to each service.
 
-To-do List:
+## To-do List:
 * Create separate database structure for this microservice.
 
 ## Usage
@@ -32,7 +32,7 @@ To-do List:
 * Adding "/id/{id}" to a base endpoint retrieves a specific entity object by its id.
 * Other API calls require execution from the front end or from a testing application like Postman.
 
-# Running Locally
+## Running Locally
 #### Reference the **Running Locally** section in https://github.com/Project-Registry-991-Kevin-Tran-Huu/project-registry-gateway and have it running before this service
 * git clone https://github.com/Project-Registry-991-Kevin-Tran-Huu/project-registry-tracking-microservice.git
 * Run this project in Eclipse or SpringToolSuite
@@ -41,4 +41,4 @@ To-do List:
 * Launch this application using spring boot.
 * This app will run at http://localhost:8083
 
-# Docker Image
+## Docker Image
