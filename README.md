@@ -22,6 +22,8 @@ This is a microservice representation of the Registry Backend. This microservice
 
 ## To-do List:
 * Create separate database structure for this microservice.
+* Finish Implementing AOP Logging Aspect.
+* Create Service methods for controller methods utilizing DTO. 
 
 ## Usage
 * This application serves as an API for the Registry frontend.
@@ -41,5 +43,3 @@ This is a microservice representation of the Registry Backend. This microservice
 * Launch the Gateway service
 * Launch this application using spring boot.
 * This app will run at http://localhost:8083
-
-## Docker Image
